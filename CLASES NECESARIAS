@@ -1,0 +1,31 @@
+CLASES NECESARIAS
+ARCHIVO:
+	Métodos:
+	contarLineas()
+	leer()
+	aMatriz()
+	escribirPalabrasEncontradas(palabrasEncontradas)
+	escribirPalabrasNoEncontradas(palabrasNoEncontradas)
+
+SOPA:
+	Métodos:
+	buscarAdyacentes(estado)
+	buscarPalabra(estadoInicial)
+	buscarPalabrasTotales(palabrasABuscar)
+	palabrasNoEncontradas(palabrasABuscar, palabrasEncontradas)
+
+PRINCIPAL
+
+MÉTODO PRINCIPAL
+crear un objeto de la clase Archivo --> entrada
+sopaDeLetras = entrada.leer().aMatriz()
+crear un objeto de la clase Archivo --> palabras
+listaPalabras = palabras.leer()
+crear un objeto de la clase sopa --> sopa(sopaDeLetras)
+palabrasEncontradas = sopa.buscarPalabrasTotales(listaPalabras)
+palabrasNoEncontradas = sopa.palabrasNoEncontradas(palabrasAbuscar, palabrasEncontradas)
+
+# Salidas
+crear un objeto de tipo Archivo --> salida
+salida.escribirPalabrasEncontradas
+salida.EscribirPalabrasNoEncontradas

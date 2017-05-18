@@ -1,0 +1,80 @@
+# Busqueda de la palabra
+# Abstraccion de datos:
+#		Sopa de letras: una matriz de chars [i][j]
+# 		Estado: [letra, indice, i, j]  letra e indice de la String palabra*
+
+ABIERTOS = []
+CERRADOS = []
+PALABRA = "PalabraBuscada"
+ESTADOINICIAL = [PALABRA[0], 0, i, j]
+
+# Funcion de transicion
+funcion buscarAdyacentes(estado):
+	estadosGenerados = []
+	
+	si len(palabra) > estado[1] + 1:
+		siguienteLetra = PALABRA[estado[1]+1]
+		siguienteIndice = estado[1]+1
+		
+		# Buscar derecha
+		# Si no estoy en la ultima columna y siguienteLetra coincide con lo que estoy buscando
+		si j != len(sopa[i])-1 and sopa[i][j+1] == siguienteLetra:
+			estadoGenerado = [siguienteLetra, siguienteIndice, i, j+1]
+			estadosGenerados --> añadir estadoGenerado
+
+		# Buscar izquierda
+		# Si no estoy en la primera columna y siguienteLetra coincide con lo que estoy buscando
+		si j != 0 and sopa[i][j-1] == siguienteLetra:
+			estadoGenerado = [siguienteLetra, siguienteIndice, i, j-1]
+			estadosGenerados --> añadir estadoGenerado
+
+		# Buscar arriba
+		# Si no estoy en la primera fila y siguienteLetra coincide con lo que estoy buscando
+		si i != 0 and sopa[i-1][j] == siguienteLetra:
+			estadoGenerado = [siguienteLetra, siguienteIndice, i-1, j]
+			estadosGenerados --> añadir estadoGenerado
+
+		# Buscar abajo
+		# Si no estoy en la ultima fila y siguienteLetra coincide con lo que estoy buscando
+		si i != len(sopa)-1 and sopa[i+1][j] == siguienteLetra:
+			estadoGenerado = [siguienteLetra, siguienteIndice, i+1, j]
+			estadosGenerados --> añadir estadoGenerado
+	retornar estadosGenerados
+
+funcion buscarPalabra(estadoInicial):
+	ABIERTOS --> añadir estadoInicial
+	mientras len(ABIERTOS) > 0:
+		indice = ABIERTOS[0][1]
+		ultimoindicePalabra = len(PALABRA)-1
+		# Si no es el estado final
+		si indice != ultimoindicePalabra:
+			estadosGenerados = buscarAdyacentes(ABIERTOS[0])
+			# Añadir los estadosGenerados a ABIERTOS
+			para cada estado en estadosGenerados:
+				# Si el estado no esta ni en abiertos ni en cerrados
+				si not(estado in(ABIERTOS)) and not(estado in(CERRADOS)):
+					ABIERTOS --> añadir estado
+			# Añado el estado actual a CERRADOS
+			CERRADOS --> añadir ABIERTOS[0]
+			# Eliminar el estado actual de ABIERTOS para no volver a analizarlo
+			ABIERTOS[0] --> eliminar
+		sino:
+			devolver verdadero
+	devolver falso
+
+funcion buscarPalabrasTotales(sopa, palabrasABuscar):
+	palabrasEncontradas = []
+	para cada palabra en palabrasABuscar:
+		para cada fila en la sopa:
+			para cada columna en la sopa:
+				si sopa[fila][columna] == palabra[0]:
+					estadoInicial = [palabra[0], 0, i, j]
+					si buscarPalabra(estadoInicial):
+						palabrasEncontradas --> añadir palabra
+	retornar palabrasEncontradas
+
+funcion palabrasNoEncontradas(palabrasABuscar, palabrasEncontradas):
+	palabrasNoEncontradas = []
+	para cada palabra en palabrasABuscar:
+		si no(palabra in palabrasEncontradas):
+			palabrasNoEncontradas --> añadir palabra
