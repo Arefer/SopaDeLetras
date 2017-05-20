@@ -52,26 +52,41 @@ public class Sopa{
 	*/
 	public ArrayList<int[]> obtenerCoordenadas(String palabra){
 		ArrayList<int[]> coordenadas = new ArrayList<int[]>();
-		int[] ultimaCoord = new int[2];
-		ultimaCoord[0] = this.ABIERTOS.get(0).i;
-		ultimaCoord[1] = this.ABIERTOS.get(0).j;
-		coordenadas.add(ultimaCoord);
-		/*for (int[] coord: coordenadas){
-			System.out.print("i: " + coord[0] + " j: " + coord[1]);
+		ArrayList<Estado> estados = new ArrayList<Estado>();
+		estados.add(this.ABIERTOS.get(0));
+		/*int iAnterior = this.ABIERTOS.get(0).estadoAnterior.i;
+		int jAnterior = this.ABIERTOS.get(0).estadoAnterior.j;
+		int indiceAnterior = this.ABIERTOS.get(0).estadoAnterior.indiceActual;
+		char letraAnterior = this.ABIERTOS.get(0).estadoAnterior.letraActual;
+		System.out.println("i anterior: " + iAnterior + " j anterior: " + jAnterior);
+		System.out.println("letra anterior: " + letraAnterior + " indice anterior: " + indiceAnterior);
+		// System.out.println(iAnterior + jAnterior + letraAnterior + indiceAnterior); */
+		//Estado prueba = new Estado(iAnterior, jAnterior, letraAnterior, indiceAnterior);
+		/*if (prueba.i == iAnterior && prueba.j == jAnterior && prueba.indiceActual == indiceAnterior && prueba.letraActual == letraAnterior){
+			System.out.println("Aasda");
+		}
+		if (prueba.esIgual(this.ABIERTOS.get(0).estadoAnterior)){
+			System.out.println("Aasda");
 		}*/
-		int iterador = palabra.length()-2;
-		while (iterador > 1 ){
-			for (Estado estado: this.CERRADOS){
-				if(estado.estadoAnterior == null){
-					iterador--;
-				}else if (estado.estadoAnterior.letraActual == palabra.charAt(iterador) && estado.estadoAnterior.indiceActual == iterador){
-					ultimaCoord[0] = estado.estadoAnterior.i;
-					ultimaCoord[1] = estado.estadoAnterior.j;
-					coordenadas.add(ultimaCoord);
-					iterador--;
-				
-				} 
+		
+		while(estados.size() < palabra.length()){
+			int iAnterior = estados.get(0).estadoAnterior.i;
+			int jAnterior = estados.get(0).estadoAnterior.j;
+			int indiceAnterior = estados.get(0).estadoAnterior.indiceActual;
+			char letraAnterior = estados.get(0).estadoAnterior.letraActual;
+			for(Estado estado: this.CERRADOS){
+				if(estado.i == iAnterior && estado.j == jAnterior && estado.indiceActual == indiceAnterior && 
+					estado.letraActual == letraAnterior){
+					estados.add(0, estado);
+					System.out.println("Añadi un estado");
+				}
 			}
+		}
+		for (Estado estado: estados){
+			int[] coord = new int[2];
+ 			coord[0] = estado.i;
+			coord[1] = estado.j;
+			coordenadas.add(coord);
 		}
 
 		return coordenadas;
@@ -103,6 +118,8 @@ public class Sopa{
 								System.out.print("i= " + coordenada[0]);
 								System.out.println("j= " + coordenada[1]);
 							}
+
+							System.out.println("Hay " + this.CERRADOS.size() + " elementos en CERRADOS");
 							
 							this.ABIERTOS.clear();
 							this.CERRADOS.clear();

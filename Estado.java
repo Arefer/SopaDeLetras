@@ -94,5 +94,17 @@ public class Estado{
 		
 		return estadosGenerados;
 	}
+	/*
+	Metodo para comprobar si dos estados son iguales (exceptuando el atributo estadoAnterior)
+	Entrada: nada
+	Salida: un booleano de acuerdo a la respuesta
+	*/
+	public boolean esIgual(Estado e2){
+		if (this.i == e2.i && this.j == e2.j && this.letraActual == e2.letraActual && this.indiceActual == e2.letraActual){
+			return true;
+		}else{
+			return false;
+		} 
+	}
 
 }
