@@ -33,8 +33,10 @@ public class Archivo {
         while (lectorBuffer.readLine() != null){
             lineas++;
         }
-        
+        lectorArchivo.close();
+        lectorBuffer.close();
         return lineas;
+        
     }
     /*
     Entrada: nada
@@ -49,7 +51,8 @@ public class Archivo {
         for (int linea=0; linea<dim; linea++){
             lineasArchivo[linea] = lectorBuffer.readLine();
         }
-
+        lectorArchivo.close();
+        lectorBuffer.close();
         return lineasArchivo;
     }
     /*
@@ -83,17 +86,18 @@ public class Archivo {
     */
     public boolean escribirResultado(ArrayList<String> encontradas, ArrayList<String> noEncontradas)
     throws IOException{
-        FileWriter fw = new FileWriter(this.archivo);
-        BufferedWriter bw = new BufferedWriter(fw);
+        FileWriter fw = new FileWriter(this.archivo, true);
+        BufferedWriter br = new BufferedWriter(fw);
         
-        bw.write("Palabras encontradas:\n");
+        fw.append("Palabras encontradas:\n");
         for (String palabra: encontradas){
-               bw.write(palabra + "\n");
+               fw.append(palabra + "\n");
         }
-        bw.write("\nPalabras no encontradas:\n");
+        fw.append("\nPalabras no encontradas:\n");
         for (String noEncontrada: noEncontradas){
-            bw.write(noEncontrada + "\n");
+            fw.append(noEncontrada + "\n");
         }
+        fw.close();
         return true;
     }
 }

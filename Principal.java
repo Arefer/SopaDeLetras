@@ -31,7 +31,9 @@ public class Principal{
         }
 
         Archivo respuesta = new Archivo("solucion.out");
-        respuesta.escribirResultado(encontradas, noEncontradas);
+        if (respuesta.escribirResultado(encontradas, noEncontradas)){
+            System.out.println("Resultado escrito correctamente en 'solucion.out'");
+        }
         // Escribir la solucion
         /*if (respuesta.escribirResultado(encontradas, noEncontradas)){
             System.out.println("Proceso realizado correctamente.");

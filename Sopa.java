@@ -4,7 +4,7 @@ public class Sopa{
 	char[][] sopa;
 	ArrayList<Estado> ABIERTOS = new ArrayList<Estado>();
 	ArrayList<Estado> CERRADOS = new ArrayList<Estado>();
-	
+	ArrayList<int[][]> COORD = new ArrayList<int[][]>(); 
 	// Metodos 
 	// Constructor
 	public Sopa(char[][] matriz){
@@ -24,7 +24,7 @@ public class Sopa{
 			char letraActual = this.ABIERTOS.get(0).letraActual;
 			int ultimoIndicePalabra = palabra.length()-1;
 			// Verifico si es el estado final
-			if(indiceActual != ultimoIndicePalabra && letraActual == palabra.charAt(ultimoIndicePalabra)){
+			if(indiceActual != ultimoIndicePalabra){
 				// Genero nuevos estados
 				ArrayList<Estado> estadosGenerados;
 				estadosGenerados = this.ABIERTOS.get(0).buscarAdyacentes(palabra, this.sopa);
@@ -45,6 +45,37 @@ public class Sopa{
 		}
 		return false;
 	}
+	/*
+	Metodo que obtiene las coordenadas de una palabra encontrada
+	Entrada: palabra
+	Salida: Arraylist de pares de coordenadas
+	*/
+	public ArrayList<int[]> obtenerCoordenadas(String palabra){
+		ArrayList<int[]> coordenadas = new ArrayList<int[]>();
+		int[] ultimaCoord = new int[2];
+		ultimaCoord[0] = this.ABIERTOS.get(0).i;
+		ultimaCoord[1] = this.ABIERTOS.get(0).j;
+		coordenadas.add(ultimaCoord);
+		/*for (int[] coord: coordenadas){
+			System.out.print("i: " + coord[0] + " j: " + coord[1]);
+		}*/
+		int iterador = palabra.length()-2;
+		while (iterador > 1 ){
+			for (Estado estado: this.CERRADOS){
+				if(estado.estadoAnterior == null){
+					iterador--;
+				}else if (estado.estadoAnterior.letraActual == palabra.charAt(iterador) && estado.estadoAnterior.indiceActual == iterador){
+					ultimaCoord[0] = estado.estadoAnterior.i;
+					ultimaCoord[1] = estado.estadoAnterior.j;
+					coordenadas.add(ultimaCoord);
+					iterador--;
+				
+				} 
+			}
+		}
+
+		return coordenadas;
+	}
 
 	/*
 	Metodo que busca todas las palabras recibidas dentro de la sopa
@@ -62,6 +93,19 @@ public class Sopa{
 						Estado estadoInicial = new Estado(i, j, palabra.charAt(0), 0);
 						if (buscarPalabra(palabra, estadoInicial)){
 							palabrasEncontradas.add(palabra);
+							System.out.println("Palabra encontrada: " + palabra);
+							/*int ii = this.ABIERTOS.get(0).i;
+							int jj = this.ABIERTOS.get(0).j;
+							System.out.print("i: " + ii);
+							System.out.println("j: " + jj);*/
+							ArrayList<int[]> coord = obtenerCoordenadas(palabra);
+							for (int[] coordenada: coord){
+								System.out.print("i= " + coordenada[0]);
+								System.out.println("j= " + coordenada[1]);
+							}
+							
+							this.ABIERTOS.clear();
+							this.CERRADOS.clear();
 						}
 					}
 				}
