@@ -4,7 +4,7 @@ public class Sopa{
 	char[][] sopa;
 	ArrayList<Estado> ABIERTOS = new ArrayList<Estado>();
 	ArrayList<Estado> CERRADOS = new ArrayList<Estado>();
-	ArrayList<int[][]> COORD = new ArrayList<int[][]>(); 
+	ArrayList<ArrayList<int[]>> COORD = new ArrayList<ArrayList<int[]>>(); 
 	// Metodos 
 	// Constructor
 	public Sopa(char[][] matriz){
@@ -46,39 +46,20 @@ public class Sopa{
 		return false;
 	}
 	/*
-	Metodo que obtiene las coordenadas de una palabra encontrada
+	Metodo que almacena las coordenadas de una palabra encontrada
 	Entrada: palabra
-	Salida: Arraylist de pares de coordenadas
+	Salida: no posee
 	*/
-	public ArrayList<int[]> obtenerCoordenadas(String palabra){
+	public void almacenarCoordenadas(String palabra){
 		ArrayList<int[]> coordenadas = new ArrayList<int[]>();
 		ArrayList<Estado> estados = new ArrayList<Estado>();
 		estados.add(this.ABIERTOS.get(0));
-		/*int iAnterior = this.ABIERTOS.get(0).estadoAnterior.i;
-		int jAnterior = this.ABIERTOS.get(0).estadoAnterior.j;
-		int indiceAnterior = this.ABIERTOS.get(0).estadoAnterior.indiceActual;
-		char letraAnterior = this.ABIERTOS.get(0).estadoAnterior.letraActual;
-		System.out.println("i anterior: " + iAnterior + " j anterior: " + jAnterior);
-		System.out.println("letra anterior: " + letraAnterior + " indice anterior: " + indiceAnterior);
-		// System.out.println(iAnterior + jAnterior + letraAnterior + indiceAnterior); */
-		//Estado prueba = new Estado(iAnterior, jAnterior, letraAnterior, indiceAnterior);
-		/*if (prueba.i == iAnterior && prueba.j == jAnterior && prueba.indiceActual == indiceAnterior && prueba.letraActual == letraAnterior){
-			System.out.println("Aasda");
-		}
-		if (prueba.esIgual(this.ABIERTOS.get(0).estadoAnterior)){
-			System.out.println("Aasda");
-		}*/
-		
 		while(estados.size() < palabra.length()){
-			int iAnterior = estados.get(0).estadoAnterior.i;
-			int jAnterior = estados.get(0).estadoAnterior.j;
-			int indiceAnterior = estados.get(0).estadoAnterior.indiceActual;
-			char letraAnterior = estados.get(0).estadoAnterior.letraActual;
 			for(Estado estado: this.CERRADOS){
-				if(estado.i == iAnterior && estado.j == jAnterior && estado.indiceActual == indiceAnterior && 
-					estado.letraActual == letraAnterior){
-					estados.add(0, estado);
-					System.out.println("Añadi un estado");
+				if (estados.size() < palabra.length()){
+					if(estado.esIgual(estados.get(0).estadoAnterior)){
+						estados.add(0, estado);
+					}
 				}
 			}
 		}
@@ -89,7 +70,7 @@ public class Sopa{
 			coordenadas.add(coord);
 		}
 
-		return coordenadas;
+		this.COORD.add(coordenadas);
 	}
 
 	/*
@@ -108,19 +89,7 @@ public class Sopa{
 						Estado estadoInicial = new Estado(i, j, palabra.charAt(0), 0);
 						if (buscarPalabra(palabra, estadoInicial)){
 							palabrasEncontradas.add(palabra);
-							System.out.println("Palabra encontrada: " + palabra);
-							/*int ii = this.ABIERTOS.get(0).i;
-							int jj = this.ABIERTOS.get(0).j;
-							System.out.print("i: " + ii);
-							System.out.println("j: " + jj);*/
-							ArrayList<int[]> coord = obtenerCoordenadas(palabra);
-							for (int[] coordenada: coord){
-								System.out.print("i= " + coordenada[0]);
-								System.out.println("j= " + coordenada[1]);
-							}
-
-							System.out.println("Hay " + this.CERRADOS.size() + " elementos en CERRADOS");
-							
+							almacenarCoordenadas(palabra);	
 							this.ABIERTOS.clear();
 							this.CERRADOS.clear();
 						}
@@ -145,4 +114,14 @@ public class Sopa{
 		}
 		return noEncontradas;
 	} 
+
+	/*
+	Metodo para obtener las coordenadas de una palabra encontrada
+	Entrada: la palabra (debe ser exclusivamente una palabra encontrada) y la lista de palabras encontradas
+	Salida: un Arraylist de int[] con las coordenadas de la palabra 
+	*/
+	public ArrayList<int[]> obtenerCoordenadas(String palabra, ArrayList<String> encontradas){
+		int indice = encontradas.indexOf(palabra);
+		return this.COORD.get(indice);
+	}
 }

@@ -31,7 +31,6 @@ public class Estado{
 	public ArrayList<Estado> buscarAdyacentes(String palabra, char[][] sopa){
 		ArrayList<Estado> estadosGenerados = new ArrayList<Estado>();
 		if(palabra.length() > this.indiceActual+1){
-			System.out.println("Entré a comprobar si puedo generar estados");
 			int siguienteIndice = this.indiceActual + 1;
 			char siguienteLetra = palabra.charAt(siguienteIndice);
 			int filasSopa = sopa.length;
@@ -49,8 +48,6 @@ public class Estado{
 					estadoActual); 
 				// Agrego el estado generado a la lista de estados generados
 				estadosGenerados.add(estadoGenerado);
-				System.out.println("Estoy en la palabra " + palabra + ". Letra " + palabra.charAt(this.indiceActual) + ". Indice " + this.indiceActual);
-				System.out.println("Generé un estado hacia la derecha con letra " + siguienteLetra + ". Indice " + siguienteIndice);
 			}
 
 			/*
@@ -62,8 +59,6 @@ public class Estado{
 					estadoActual);
 				// Agrego el estado generado a la lista de estados generados
 				estadosGenerados.add(estadoGenerado);
-				System.out.println("Estoy en la palabra " + palabra + ". Letra " + palabra.charAt(this.indiceActual) + ". Indice " + this.indiceActual);
-				System.out.println("Generé un estado hacia la izquierda con letra " + siguienteLetra + ". Indice " + siguienteIndice);
 			}
 			/*
 			Buscar arriba si no estoy en la primera fila y siguienteLetra coincide
@@ -74,8 +69,6 @@ public class Estado{
 					estadoActual);
 				// Agrego el estado generado a la lista de estados generados
 				estadosGenerados.add(estadoGenerado);
-				System.out.println("Estoy en la palabra " + palabra + ". Letra " + palabra.charAt(this.indiceActual) + ". Indice " + this.indiceActual);
-				System.out.println("Generé un estado hacia arriba con letra " + siguienteLetra + ". Indice " + siguienteIndice);
 			}
 
 			/*
@@ -87,8 +80,6 @@ public class Estado{
 					estadoActual);
 				// Agrego el estado generado a la lista de estados generados
 				estadosGenerados.add(estadoGenerado);
-				System.out.println("Estoy en la palabra " + palabra + ". Letra " + palabra.charAt(this.indiceActual) + ". Indice " + this.indiceActual);
-				System.out.println("Generé un estado hacia abajo con letra " + siguienteLetra + ". Indice " + siguienteIndice);
 			}
 		}
 		
@@ -100,7 +91,7 @@ public class Estado{
 	Salida: un booleano de acuerdo a la respuesta
 	*/
 	public boolean esIgual(Estado e2){
-		if (this.i == e2.i && this.j == e2.j && this.letraActual == e2.letraActual && this.indiceActual == e2.letraActual){
+		if (this.i == e2.i && this.j == e2.j && this.letraActual == e2.letraActual && this.indiceActual == e2.indiceActual){
 			return true;
 		}else{
 			return false;
