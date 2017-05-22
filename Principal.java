@@ -29,15 +29,9 @@ public class Principal{
         for (String palabra: noEncontradas){
             System.out.println("- " + palabra);
         }
-
         Archivo respuesta = new Archivo("solucion.out");
-        if (respuesta.escribirResultado(encontradas, noEncontradas)){
+        if (respuesta.escribirResultado(encontradas, noEncontradas, sopa)){
             System.out.println("Resultado escrito correctamente en 'solucion.out'");
         }
-        // Escribir la solucion
-        /*if (respuesta.escribirResultado(encontradas, noEncontradas)){
-            System.out.println("Proceso realizado correctamente.");
-        }
-        */
     }
 }

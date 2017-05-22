@@ -57,7 +57,7 @@ public class Archivo {
     }
     /*
     Entrada: Array de lineas del archivo
-    Salida: Array de chars
+    Salida: matriz de chars
     */
     public char[][] aMatriz(String[] lineas){
         int filas = lineas.length;
@@ -81,21 +81,27 @@ public class Archivo {
     }
     /*
     Metodo para escribir el resultado
-    Entrada: palabras encontradas, palabras no encontradas
+    Entrada: palabras encontradas, palabras no encontradas, sopa 
     Salida: booleano
     */
-    public boolean escribirResultado(ArrayList<String> encontradas, ArrayList<String> noEncontradas)
+    public boolean escribirResultado(ArrayList<String> encontradas, ArrayList<String> noEncontradas, Sopa sopa)
     throws IOException{
         FileWriter fw = new FileWriter(this.archivo, true);
         BufferedWriter br = new BufferedWriter(fw);
-        
         fw.append("Palabras encontradas:\n");
         for (String palabra: encontradas){
-               fw.append(palabra + "\n");
+            fw.append("- " + palabra + "\n Coordenadas:");
+            ArrayList<int[]> coordenadas = sopa.obtenerCoordenadas(palabra, encontradas);
+            for (int[] coordenada: coordenadas){
+                int i = coordenada[0];
+                int j = coordenada[1];
+                fw.append(" (" + i + ", " + j + ")");
+            }
+            fw.append("\n");
         }
         fw.append("\nPalabras no encontradas:\n");
         for (String noEncontrada: noEncontradas){
-            fw.append(noEncontrada + "\n");
+            fw.append("- " + noEncontrada + "\n");
         }
         fw.close();
         return true;
