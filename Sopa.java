@@ -85,7 +85,7 @@ public class Sopa{
 			for(int i=0; i<this.sopa.length; i++){
 				// Para cada columna en la sopa
 				for(int j=0; j<this.sopa[i].length; j++){
-					if(palabra.charAt(0) == sopa[i][j]){
+					if(palabra.charAt(0) == sopa[i][j] && (!(palabrasEncontradas.contains(palabra)))){
 						Estado estadoInicial = new Estado(i, j, palabra.charAt(0), 0);
 						if (buscarPalabra(palabra, estadoInicial)){
 							palabrasEncontradas.add(palabra);
