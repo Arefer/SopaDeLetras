@@ -88,20 +88,20 @@ public class Archivo {
     throws IOException{
         FileWriter fw = new FileWriter(this.archivo, true);
         BufferedWriter br = new BufferedWriter(fw);
-        fw.append("Palabras encontradas:\n");
+        fw.append("Palabras encontradas:\r\n");
         for (String palabra: encontradas){
-            fw.append("- " + palabra + "\n Coordenadas:");
+            fw.append("- " + palabra + "\r\n Coordenadas:");
             ArrayList<int[]> coordenadas = sopa.obtenerCoordenadas(palabra, encontradas);
             for (int[] coordenada: coordenadas){
                 int i = coordenada[0];
                 int j = coordenada[1];
                 fw.append(" (" + i + ", " + j + ")");
             }
-            fw.append("\n");
+            fw.append("\r\n");
         }
-        fw.append("\nPalabras no encontradas:\n");
+        fw.append("\r\nPalabras no encontradas:\r\n");
         for (String noEncontrada: noEncontradas){
-            fw.append("- " + noEncontrada + "\n");
+            fw.append("- " + noEncontrada + "\r\n");
         }
         fw.close();
         return true;

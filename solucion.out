@@ -1,4 +1,5 @@
 Palabras encontradas:
+<<<<<<< HEAD
 - abcde
  Coordenadas: (0, 0) (0, 1) (0, 2) (0, 3) (0, 4)
 - abcde
@@ -11,3 +12,10 @@ Palabras encontradas:
  Coordenadas: (0, 0) (0, 1) (0, 2) (0, 3) (0, 4)
 
 Palabras no encontradas:
+=======
+- abcdef
+ Coordenadas: (0, 0) (0, 1) (0, 2) (0, 3) (0, 4) (0, 5)
+
+Palabras no encontradas:
+- carruaje
+>>>>>>> a81ddeebade3b0a91a1262729fcd5566db489131
