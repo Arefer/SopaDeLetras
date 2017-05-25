@@ -31,9 +31,7 @@ public class Sopa{
 				// Agrego los estadosGenerados a ABIERTOS si es que es un estado 
 				// que no se ha analizado
 				for(Estado estado: estadosGenerados){
-					if(!(this.ABIERTOS.contains(estado) || this.CERRADOS.contains(estado))){
-						this.ABIERTOS.add(estado);
-					}
+					agregarEstado(estado);	
 				}
 				// Añado el estado actual a CERRADOS
 				this.CERRADOS.add(this.ABIERTOS.get(0));
@@ -45,6 +43,27 @@ public class Sopa{
 		}
 		return false;
 	}
+
+	/*
+	Metodo para agregar un estado valido a ABIERTOS
+	Entrada: un Estado
+	Salida: un booleano indicando si se agrego o no el estado
+	*/
+	public boolean agregarEstado(Estado candidato){
+		for (Estado estado: this.ABIERTOS){
+			// if (estado.esIgual(candidato)){
+			if(estado.i == candidato.i && estado.j == candidato.j){
+				return false;
+			}
+		}
+		for (Estado cerrado: this.CERRADOS){
+			if(cerrado.i == candidato.i && cerrado.j == candidato.j){
+				return false;
+			}
+		}
+		this.ABIERTOS.add(candidato);
+		return true;
+	} 
 	/*
 	Metodo que almacena las coordenadas de una palabra encontrada
 	Entrada: palabra
@@ -96,6 +115,8 @@ public class Sopa{
 					}
 				}
 			}
+			this.ABIERTOS.clear();
+			this.CERRADOS.clear();
 		}
 		return palabrasEncontradas;		
 	}
