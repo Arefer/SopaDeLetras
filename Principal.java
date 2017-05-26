@@ -3,7 +3,7 @@ import java.util.ArrayList;
 public class Principal{
 
     public static void main(String[] args) throws IOException {
-        Archivo archivoSopa = new Archivo("sopa.in");
+        Archivo archivoSopa = new Archivo("Sopa.in");
         String[] lineasArchivo = archivoSopa.leer();
         char[][] sopaDeLetras = archivoSopa.aMatriz(lineasArchivo);
         System.out.println("Sopa:");
@@ -15,7 +15,7 @@ public class Principal{
         }
         System.out.println();
         
-        Archivo archivoPalabras = new Archivo("palabras.in");
+        Archivo archivoPalabras = new Archivo("Palabras.in");
         String[] palabrasABuscar = archivoPalabras.leer();        
         Sopa sopa = new Sopa(sopaDeLetras);
         System.out.println("Palabras encontradas: ");
@@ -29,9 +29,9 @@ public class Principal{
         for (String palabra: noEncontradas){
             System.out.println("- " + palabra);
         }
-        Archivo respuesta = new Archivo("solucion.out");
+        Archivo respuesta = new Archivo("Solucion.out");
         if (respuesta.escribirResultado(encontradas, noEncontradas, sopa)){
-            System.out.println("Resultado escrito correctamente en 'solucion.out'");
+            System.out.println("Resultado escrito correctamente en 'Solucion.out'");
         }
     }
 }

@@ -51,7 +51,6 @@ public class Sopa{
 	*/
 	public boolean agregarEstado(Estado candidato){
 		for (Estado estado: this.ABIERTOS){
-			// if (estado.esIgual(candidato)){
 			if(estado.i == candidato.i && estado.j == candidato.j){
 				return false;
 			}
@@ -109,12 +108,14 @@ public class Sopa{
 						if (buscarPalabra(palabra, estadoInicial)){
 							palabrasEncontradas.add(palabra);
 							almacenarCoordenadas(palabra);	
+							// Vacio ABIERTOS y CERRADOS porque sus datos se vuelve irrelevantes
 							this.ABIERTOS.clear();
 							this.CERRADOS.clear();
 						}
 					}
 				}
 			}
+			// Vacio ABIERTOS y CERRADOS si no se encontro la palabra
 			this.ABIERTOS.clear();
 			this.CERRADOS.clear();
 		}
